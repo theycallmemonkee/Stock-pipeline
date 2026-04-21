@@ -1,46 +1,134 @@
-Overview
-========
+# 📈 Stock ETL Pipeline (Airflow + Python + PostgreSQL)
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+This project is an end-to-end data engineering pipeline that extracts stock market data from the Twelve Data API, processes it, and loads it into a PostgreSQL database using Apache Airflow for orchestration.
 
-Project Contents
-================
+---
 
-Your Astro project contains the following files and folders:
+## 🚀 Project Overview
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+The pipeline follows the ETL (Extract, Transform, Load) architecture:
 
-Deploy Your Project Locally
-===========================
+* **Extract**: Fetch stock data from Twelve Data API
+* **Transform**: Clean and structure the data
+* **Load**: Store processed data into PostgreSQL
+* **Orchestration**: Automated using Apache Airflow (Astro CLI)
 
-Start Airflow on your local machine by running 'astro dev start'.
+---
 
-This command will spin up five Docker containers on your machine, each for a different Airflow component:
+## 🛠️ Tech Stack
 
-- Postgres: Airflow's Metadata Database
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- DAG Processor: The Airflow component responsible for parsing DAGs
-- API Server: The Airflow component responsible for serving the Airflow UI and API
-- Triggerer: The Airflow component responsible for triggering deferred tasks
+* Python
+* Apache Airflow (Astro CLI)
+* PostgreSQL
+* SQL
+* Docker
 
-When all five containers are ready the command will open the browser to the Airflow UI at http://localhost:8080/. You should also be able to access your Postgres Database at 'localhost:5432/postgres' with username 'postgres' and password 'postgres'.
+---
 
-Note: If you already have either of the above ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
+## 📁 Project Structure
 
-Deploy Your Project to Astronomer
-=================================
+```
+.
+├── dags/
+│   └── etl_pipeline.py
+│
+├── scripts/
+│   ├── extract.py
+│   ├── load.py
+│
+├── .env
+├── requirements.txt
+├── Dockerfile
+└── README.md
+```
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
+---
 
-Contact
-=======
+## ⚙️ Setup Instructions
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
-# Stock-pipeline
+### 1. Clone the repository
+
+```
+git clone https://github.com/your-username/stock-etl-pipeline.git
+cd stock-etl-pipeline
+```
+
+---
+
+### 2. Add API Key
+
+Create a `.env` file:
+
+```
+TWELVE_DATA_API_KEY=your_api_key_here
+```
+
+---
+
+### 3. Start Airflow (Astro)
+
+```
+astro dev start
+```
+
+---
+
+### 4. Access Airflow UI
+
+Open:
+
+```
+http://localhost:8080
+```
+
+---
+
+## 🔄 DAG Workflow
+
+* DAG Name: `simple_stock_etl`
+* Schedule: Manual / Daily
+* Tasks:
+
+  * Extract data from API
+  * Process data
+  * Load into database
+
+---
+
+## 📊 Features
+
+* Automated stock data ingestion
+* API integration
+* Error handling
+* Modular ETL design
+* Scalable pipeline structure
+
+---
+
+## ⚠️ Notes
+
+* Do not push `.env` file to GitHub
+* Use environment variables for sensitive data
+* API limits may apply
+
+---
+
+## 📌 Future Improvements
+
+* Add multiple stock symbols
+* Implement incremental loading
+* Add data validation
+* Build dashboard (Power BI / Tableau)
+* Add alerting system
+
+---
+
+## 👨‍💻 Author
+
+Yogesh Mehta
+
+---
+
+## ⭐ If you like this project
+
+Give it a star on GitHub ⭐
